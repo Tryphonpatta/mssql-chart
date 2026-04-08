@@ -21,7 +21,7 @@ spec:
   targetNamespace: cozy-system
   chart:
     spec:
-      chart: ./packages/apps/mssql
+      chart: ./packages/core/platform
       sourceRef:
         kind: GitRepository
         name: external-apps-mssql

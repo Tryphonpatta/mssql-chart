@@ -1,0 +1,61 @@
+apiVersion: cozystack.io/v1alpha1
+kind: CozystackResourceDefinition
+metadata:
+  name: mssql
+  namespace: cozy-system
+spec:
+  application:
+    kind: MSSQL
+    openAPISchema: |
+      {
+        "properties": {
+          "ACCEPT_EULA": {
+            "default": "Y",
+            "description": "Accept the end-user licensing agreement",
+            "type": "string"
+          },
+          "MSSQL_PID": {
+            "default": "Developer",
+            "description": "Product ID (Developer, Express, Standard, Enterprise)",
+            "type": "string"
+          },
+          "MSSQL_AGENT_ENABLED": {
+            "default": "true",
+            "description": "Enable SQL Server Agent",
+            "type": "string"
+          },
+          "sa_password": {
+            "default": "changepassword",
+            "description": "SA password",
+            "type": "string"
+          },
+          "storage_size": {
+            "default": "50Gi",
+            "description": "Storage size for MSSQL data",
+            "type": "string"
+          }
+        },
+        "title": "Chart Values",
+        "type": "object"
+      }
+    plural: mssqls
+    singular: mssql
+  release:
+    chart:
+      name: ./packages/apps/mssql
+      sourceRef:
+        kind: GitRepository
+        name: external-apps-mssql
+        namespace: cozy-public
+    labels:
+      cozystack.io/ui: "true"
+    prefix: mssql-
+  dashboard:
+    category: PaaS
+    singular: MSSQL
+    plural: MSSQL
+    description: Microsoft SQL Server is a relational database management system.
+    tags:
+      - database
+      - sql
+    icon: PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iI0Q0MzcyNyIvPgo8dGV4dCB4PSIxNiIgeT0iMjMiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgZmlsbD0id2hpdGUiIGZvbnQtd2VpZ2h0PSJib2xkIj5NVDwvdGV4dD4KPC9zdmc+

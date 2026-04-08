@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mssql-config
+data:
+  ACCEPT_EULA: {{ .Values.ACCEPT_EULA | quote }}
+  MSSQL_PID: {{ .Values.MSSQL_PID | quote }}
+  MSSQL_AGENT_ENABLED: {{ .Values.MSSQL_AGENT_ENABLED | quote }}
+  sa_password: {{ .Values.sa_password | quote }}
+  storage_size: {{ .Values.storage_size | quote }}
