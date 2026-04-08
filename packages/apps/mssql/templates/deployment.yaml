@@ -86,4 +86,4 @@ spec:
           claimName: mssql-data
        - name: mssql-config-volume
          configMap:
-          name: mssql-config
+          name: {{ include "mssql.fullname" . }}-config
