@@ -1,61 +1,55 @@
 apiVersion: cozystack.io/v1alpha1
-kind: CozystackResourceDefinition
+kind: ApplicationDefinition
 metadata:
   name: mssql
   namespace: cozy-system
 spec:
   application:
     kind: MSSQL
-    openAPISchema: |
-      {
-        "properties": {
-          "ACCEPT_EULA": {
-            "default": "Y",
-            "description": "Accept the end-user licensing agreement",
-            "type": "string"
-          },
-          "MSSQL_PID": {
-            "default": "Developer",
-            "description": "Product ID (Developer, Express, Standard, Enterprise)",
-            "type": "string"
-          },
-          "MSSQL_AGENT_ENABLED": {
-            "default": "true",
-            "description": "Enable SQL Server Agent",
-            "type": "string"
-          },
-          "sa_password": {
-            "default": "changepassword",
-            "description": "SA password",
-            "type": "string"
-          },
-          "storage_size": {
-            "default": "50Gi",
-            "description": "Storage size for MSSQL data",
-            "type": "string"
-          }
-        },
-        "title": "Chart Values",
-        "type": "object"
-      }
+    openAPISchema: '{"title":"Chart Values","type":"object","properties":{"ACCEPT_EULA":{"default":"Y","description":"Accept the end-user licensing agreement","type":"string"},"MSSQL_PID":{"default":"Developer","description":"Product ID (Developer, Express, Standard, Enterprise)","type":"string"},"MSSQL_AGENT_ENABLED":{"default":"true","description":"Enable SQL Server Agent","type":"string"},"sa_password":{"default":"changepassword","description":"SA password","type":"string"},"storage_size":{"default":"50Gi","description":"Storage size for MSSQL data","pattern":"^(\\\\+|-)?(([0-9]+(\\\\.[0-9]*)?)|(\\\\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\\\\+|-)?(([0-9]+(\\\\.[0-9]*)?)|(\\\\.[0-9]+))))?$","anyOf":[{"type":"integer"},{"type":"string"}],"x-kubernetes-int-or-string":true}}}'
     plural: mssqls
     singular: mssql
+  dashboard:
+    category: PaaS
+    description: Managed MSSQL service
+    icon: PHN2ZyB3aWR0aD0iMTQ0IiBoZWlnaHQ9IjE0NCIgdmlld0JveD0iMCAwIDE0NCAxNDQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxNDQiIGhlaWdodD0iMTQ0IiByeD0iMjQiIGZpbGw9IiNEMTgyMzkiLz4KPHBhdGggZD0iTTg0IDg0TDg4IDg4TDg4IDQwTDg0IDM2TDQwIDM2TDQwIDQwTDg0IDQwVjg0Wk00OCA4NEM0OCA4OC41MjI4IDQ0LjUyMjggOTIgNDAgOTJDMzUuNDc3MiA5MiAzMiA4OC41MjI4IDMyIDg0QzMyIDc5LjQ3NzIgMzUuNDc3MiA3NiA0MCA3NkM0NC41MjI4IDc2IDQ4IDc5LjQ3NzIgNDggODRaTTg4IDQ4Qzg4IDQzLjQ3NzIgOTEuNDc3MiA0MCA5NiA0MkM5NC45MzA5IDQ0LjU4MjMgOTcuMzkzNiA0OC4xODM1IDk4IDUyLjk0MzlDOTguMjIyNSA1NC4zOTUzIDk4LjMzNDcgNTUuODYxIDk4LjMzNDcgNTcuMzMzQzk4LjMzNDcgNjguMzc1IDk1LjM3NSA3OC41ODU5IDkyIDg4QzkwLjMyNDcgOTMuNDc3MiA4OC41ODU5IDk2LjEwOTQgODYuNjU2MiA5Ny41NTUxQzgzLjg5MDUgOTkuNTg1OSA4MC42MjkxIDEwMCA3NiAxMDBDNzEuNDA1MiAxMDAgNjQuNzU2NSA5Ni42NDY1IDYwLjk0MzkgOTIuMjIyNUM1Ny4xMzEzIDg3Ljc5ODQgNTQuODA0NyA4Mi4xNzU4IDU0LjgwNDcgNzUuMjY3MkM1NC44MDQ3IDczLjgyMDMgNTUuMjExIDcyLjM4OTkgNTYuNjIzNSA3MS42NTYyQzU3LjIxNjUgNzEuMjUxOSA1OC4wNzE2IDcxLjAzMTkgNTguOTc2NSA3MS4wMzE5QzU5Ljk1NzEgNzEuMDMxOSA2MC45OTQxIDcxLjQ3NzIgNjIuMDMyNiA3Mi4yMTg5QzY1LjA0MDEgNzQuNTYwNiA2OC42MTA1IDc4LjE3NTggNjguNjEwNSA4My41MzMzQzY4LjYxMDUgODQuNDY2OCA2OC42ODM2IDg1LjM5OTQgNjguNjgzNiA4Ni4zMzMzVjY4LjY4MzYgODguMTU4IDY5LjI1NDkgODkuNzk0NCA3MC41NTc1IDkwLjg2NjdDNzIuMTc5MiA5Mi41ODU5IDc0LjExOTkgOTMuNjEzOSA3Ni41NTUxIDkzLjYxMzlDNzguNzU2NSA5My42MTM5IDgwLjU3NDcgOTIuNTg1OSA4MS45NDM5IDkwLjg2NjdDOC41Nzg4IDg5LjM3MDIgODcuOTI1MyA4Ny4xMzU5IDg4IDg0Wk01NiA4NEM1NiA4OC41MjI4IDUyLjUyMjggOTIgNDggOTJDNDMuNDc3MiA5MiA0MCA4OC41MjI4IDQwIDg0QzQwIDc5LjQ3NzIgNDMuNDc3MiA3NiA0OCA3NkM1Mi41MjI4IDc2IDU2IDc5LjQ3NzIgNTYgODRaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K
+    keysOrder:
+    - - apiVersion
+    - - appVersion
+    - - kind
+    - - metadata
+    - - metadata
+      - name
+    - - spec
+      - ACCEPT_EULA
+    - - spec
+      - MSSQL_PID
+    - - spec
+      - MSSQL_AGENT_ENABLED
+    - - spec
+      - sa_password
+    - - spec
+      - storage_size
+    plural: MSSQL Instances
+    singular: MSSQL
+    tags:
+    - database
+    - sql
   release:
-    chart:
-      name: ./packages/apps/mssql
-      sourceRef:
-        kind: GitRepository
-        name: external-apps-mssql
-        namespace: cozy-public
+    chartRef:
+      kind: ExternalArtifact
+      name: cozystack-mssql-application-default-mssql
+      namespace: cozy-system
     labels:
       cozystack.io/ui: "true"
     prefix: mssql-
-  dashboard:
-    category: PaaS
-    singular: MSSQL
-    plural: MSSQL
-    description: Microsoft SQL Server is a relational database management system.
-    tags:
-      - database
-      - sql
-    icon: PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iI0Q0MzcyNyIvPgo8dGV4dCB4PSIxNiIgeT0iMjMiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgZmlsbD0id2hpdGUiIGZvbnQtd2VpZ2h0PSJib2xkIj5NVDwvdGV4dD4KPC9zdmc+
+  secrets:
+    exclude: []
+    include:
+    - resourceNames:
+      - mssql-{{ .name }}-credentials
+  services:
+    exclude: []
+    include:
+    - resourceNames:
+      - mssql-{{ .name }}-external
